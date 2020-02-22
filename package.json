@@ -14,6 +14,7 @@
     "ts-stopwatch": "0.0.4",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.2",
+    "vue-google-oauth2": "^1.4.0",
     "vue-property-decorator": "^8.3.0"
   },
   "devDependencies": {

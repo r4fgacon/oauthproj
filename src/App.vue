@@ -2,18 +2,18 @@
   <div id="app">
     <!--<img alt="Vue logo" src="./assets/logo.png">-->
     <Hangman></Hangman>
-    <Oauth msg="Welcome to Your Vue.js + TypeScript App"/>
+    <Auth></Auth>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Oauth from './components/Oauth.vue';
+import Auth from './components/Auth.vue';
 import Hangman from "@/components/Hangman.vue";
 
 @Component({
   components: {
-    Oauth,
+    Auth,
     Hangman
 
   },
