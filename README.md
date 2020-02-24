@@ -5,6 +5,12 @@
 npm install
 ```
 
+## Run servers
+```
+json-server ./src/assets/countries_and_capitals.json --port 3001
+json-server ./src/assets/highscores.json --port 3002
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve

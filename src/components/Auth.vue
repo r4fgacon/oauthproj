@@ -1,23 +1,17 @@
 <template>
 
-  <div class="hello">
+  <div class="Auth">
 
           <button
-                  type="primary"
-                  icon="fas fa-edit"
                   @click="handleClickLogin"
                   :disabled="!isInit"
           >get authCode</button>
           <button
-                  type="primary"
-                  icon="fas fa-edit"
                   @click="handleClickSignIn"
                   v-if="!isSignIn"
                   :disabled="!isInit"
           >sign in</button>
           <button
-                  type="primary"
-                  icon="fas fa-edit"
                   @click="handleClickSignOut"
                   v-if="isSignIn"
                   :disabled="!isInit"

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <!--<img alt="Vue logo" src="./assets/logo.png">-->
     <Hangman></Hangman>
     <Auth></Auth>
+    <Highscores></Highscores>
   </div>
 </template>
 
@@ -10,11 +10,13 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Auth from './components/Auth.vue';
 import Hangman from "@/components/Hangman.vue";
+import Highscores from "@/components/Highscores.vue";
 
 @Component({
   components: {
     Auth,
-    Hangman
+    Hangman,
+    Highscores
 
   },
 })

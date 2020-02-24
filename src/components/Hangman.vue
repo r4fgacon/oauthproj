@@ -44,18 +44,18 @@
         @Prop() private header!: string;
         @Prop() private usedLetters!: Array<string>;
         @Prop() private capitalProgressFields!: Array<string>;
-        @Prop() private capital!: Capital;
+        @Prop() private answer!: Answer;
         @Prop() private health!: number;
         @Prop() private time!: Stopwatch;
         @Prop() private hint!: string;
-        @Prop() private countriesData!: Array<Capital>;
+        @Prop() private answers!: Array<Answer>;
         @Prop() private gameOn = false;
 
 
 
 
         clearProperties(){
-            this.header = "Time is running";
+            this.header = "Whats the capital";
             this.hint = "Click letters to start guessing";
             this.health = 6;
             this.usedLetters = [];
@@ -68,17 +68,16 @@
             this.clearProperties();
             this.gameOn = true;
 
-
             console.log("New game");
 
-            this.getRandomCapital(this.randomiseCapitalId());
+            this.initRandomCapital(this.randomiseCapitalId());
 
             this.fillAnswersWithBlanks();
 
             this.addKeypressListener();
 
 
-            console.log(this.capital.Capital);
+            console.log(this.answer.capital);
 
 
         }
@@ -86,8 +85,8 @@
         async created() {
             this.header = "Welcome to hangman!";
             try {
-                const res = await axios.get('http://localhost:3000/countriesData');
-                this.countriesData = res.data;
+                const res = await axios.get('http://localhost:3001/countriesData');
+                this.answers = res.data;
 
             } catch (e) {
                 console.log("Error while receiving json data");
@@ -95,29 +94,36 @@
         }
 
         private randomiseCapitalId() {
-            const amountOfElements = this.countriesData.length;
+            const amountOfElements = this.answers.length;
             return Math.floor(Math.random() * (amountOfElements + 1));
         }
 
-        private getRandomCapital(capitalId: number) {
-            for (let i = 0; i < this.countriesData.length; i++) {
-                const element: Capital = this.countriesData[i];
-                if (element.Id == capitalId) {
-                    this.capital = element;
+        private initRandomCapital(answerId: number) {
+            /*for (let i = 0; i < this.answers.length; i++) {
+                const element: Answer = this.answers[i];
+                if (element.id == capitalId) {
+                    this.answer = element;
                 }
-            }
+            }*/
+
+            this.answers.forEach((answer: Answer) => {
+                if (answer.id === answerId) {
+                    this.answer = answer;
+                }
+            });
         }
 
         private fillAnswersWithBlanks() {
-            const capitalName = this.capital.Capital.toLowerCase().replace(/[a-z]/g, '_');
+            const capitalName = this.answer.capital.toLowerCase().replace(/[a-z]/g, '_');
             for (let i = 0; i < capitalName.length; i++){
                 this.capitalProgressFields.push(capitalName.charAt(i));
             }
+
         }
 
-        private addLetter(letter: string){
-            for(let i = 0; i< this.capital.Capital.length; i++){
-                if (this.capital.Capital[i].toLowerCase()==letter){
+        private addCorrectLetter(letter: string){
+            for(let i = 0; i < this.answer.capital.length; i++){
+                if (this.answer.capital[i].toLowerCase()==letter){
                     this.capitalProgressFields[i] = letter;
                 }
             }
@@ -136,26 +142,28 @@
         }
 
         private handleLetter(letter: string) {
-            let hit = false;
-            if (letter.length === 1 && letter.match(/[a-z]/i)) {
+            if (letter.match(/[a-z]/i)) {
                 if (!this.usedLetters.includes(letter)) {
-                    for (let i = 0; i < this.capital.Capital.length; i++) {
-                        if (this.capital.Capital[i].toLowerCase() === letter) {
-                            hit = true;
-                        }
-                    }
-                    hit ? this.addLetter(letter) : this.health-=1;
+                    this.isLetterMatch(letter) ? this.addCorrectLetter(letter): this.health -= 1;
                     this.usedLetters.push(letter);
                 }
             }
         }
 
+        private isLetterMatch(letter: string){
+            for (let i = 0; i < this.answer.capital.length; i++) {
+                if (this.answer.capital[i].toLowerCase() === letter) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private handleHealth(){
             if (this.health < 3){
-                this.hint="Hint: Capital of " + this.capital.Country + ".";
+                this.hint="Hint: Answer of " + this.answer.country + ".";
             }
             if (this.health == 0){
-                console.log("gameover");
                 this.header="Game Over";
                 this.endGame()
             }
@@ -194,7 +202,7 @@
                 this.health = 0;
             }
             const src = require.context("../assets/hangmanPNGs/", false, /\.png$/);
-            return (src('./' + this.health + 'hp.png'));
+            return (src(`./${this.health}hp.png`));
         }
 
     }
