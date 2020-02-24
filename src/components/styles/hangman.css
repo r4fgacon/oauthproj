@@ -1,0 +1,20 @@
+.ProgressFields{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.ProgressField{
+    margin-right: 5px;
+    font-size: 40px;
+}
+.UsedLetters{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+.UsedLetter{
+    margin-right: 2px;
+    font-size: 20px;
+    color: red;
+}
