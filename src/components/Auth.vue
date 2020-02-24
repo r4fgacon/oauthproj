@@ -1,25 +1,21 @@
 <template>
 
   <div class="Auth">
-
-          <button
-                  @click="handleClickLogin"
-                  :disabled="!isInit"
-          >get authCode</button>
+          <p></p>
           <button
                   @click="handleClickSignIn"
                   v-if="!isSignIn"
                   :disabled="!isInit"
           >sign in</button>
+
           <button
                   @click="handleClickSignOut"
                   v-if="isSignIn"
                   :disabled="!isInit"
           >sign out</button>
-          <i class="fas fa-edit"></i>
-          <p>isInit: {{isInit}}</p>
-          <p>isSignIn: {{isSignIn}}</p>
 
+
+      <p v-if="isSignIn">{{ login() }}</p>
   </div>
 
 </template>

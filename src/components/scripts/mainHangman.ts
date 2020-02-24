@@ -15,9 +15,18 @@ export default class Hangman extends Vue {
     @Prop() private hint!: string;
     @Prop() private answers!: Array<Answer>;
     @Prop() private gameOn = false;
+    @Prop() private apiUrl = 'http://localhost:3001';
 
+    async created() {
 
+        try {
+            const res = await axios.get(this.apiUrl+'/answers');
+            this.answers = res.data;
 
+        } catch (e) {
+            console.log("Error while receiving json data");
+        }
+    }
 
     clearProperties(){
         this.header = "Whats the capital";
@@ -31,6 +40,7 @@ export default class Hangman extends Vue {
     newGame() {
 
         this.clearProperties();
+
         this.gameOn = true;
 
         console.log("New game");
@@ -45,17 +55,6 @@ export default class Hangman extends Vue {
         console.log(this.answer.capital);
 
 
-    }
-
-    async created() {
-        this.header = "Welcome to hangman!";
-        try {
-            const res = await axios.get('http://localhost:3001/answers');
-            this.answers = res.data;
-
-        } catch (e) {
-            console.log("Error while receiving json data");
-        }
     }
 
     private randomiseCapitalId() {

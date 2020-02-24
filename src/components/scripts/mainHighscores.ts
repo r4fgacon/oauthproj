@@ -8,7 +8,7 @@ export default class Highscores extends Vue {
     @Prop() private msg!: string;
     @Prop() private highscores!: Array<Highscore>;
     @Prop() private timer!: number;
-    @Prop() private apiUrl = 'http://localhost:3002/highscores';
+    @Prop() private apiUrl = 'http://localhost:3002';
 
 
     async created() {
@@ -34,7 +34,7 @@ export default class Highscores extends Vue {
     httpCall(method: string, data: Highscore) {
 
         const xhr = new XMLHttpRequest();
-        xhr.open(method, this.apiUrl, true);
+        xhr.open(method, this.apiUrl + "/highscores", true);
         if (data != null) {
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.send(JSON.stringify(data));
@@ -46,7 +46,7 @@ export default class Highscores extends Vue {
         setTimeout(() => console.log(this.highscores), 2000);
         // console.log(this.highscores);
         for(let i = 0; i < this.highscores.length; i++){
-            await axios.delete(this.apiUrl + "/" + (i+1));
+            await axios.delete(this.apiUrl + "/highscores/" + (i+1));
         }
     }
     async fillHighscores(){

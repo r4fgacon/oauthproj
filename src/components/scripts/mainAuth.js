@@ -3,24 +3,29 @@ export default {
     name: "HelloWorld",
     props: {
         msg: String
+
     },
     data() {
         return {
             isInit: false,
-            isSignIn: false
+            isSignIn: false,
+            userData: {
+                name: null,
+                pictureUrl: null
+            }
         };
     },
     methods: {
-        handleClickLogin() {
-            this.$gAuth
-                .getAuthCode()
-                .then(authCode => {
-                    //on success
-                    console.log("authCode", authCode);
-                })
-                .catch(error => {
-                    //on fail do something
-                });
+        login(){
+            this.userData.name = this.$gAuth.GoogleAuth.currentUser.get().getBasicProfile().Ad;
+            this.userData.pictureUrl = this.$gAuth.GoogleAuth.currentUser.get().getBasicProfile().jL;
+            //console.log(this.userData);
+            this.$emit("passUser", this.userData);
+            //this.handleClientLoad();
+            //this.initClient();
+
+           // this.makeRequest();
+
         },
 
         handleClickSignIn() {
@@ -55,7 +60,6 @@ export default {
                 });
         }
     },
-
     created() {
         let that = this;
         let checkGauthLoad = setInterval(function() {
@@ -64,4 +68,7 @@ export default {
             if (that.isInit) clearInterval(checkGauthLoad);
         }, 1000);
     }
+
+
+
 };

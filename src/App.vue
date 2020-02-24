@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <Hangman></Hangman>
-    <Auth></Auth>
+    <Hangman header="Welcome to hangman!" ></Hangman>
+    <Auth v-on:passUser="initUserData"></Auth>
     <Highscores></Highscores>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import Auth from './components/Auth.vue';
 import Hangman from "@/components/Hangman.vue";
 import Highscores from "@/components/Highscores.vue";
@@ -18,9 +18,18 @@ import Highscores from "@/components/Highscores.vue";
     Hangman,
     Highscores
 
-  },
+  }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  @Prop() private userData!: UserData;
+  @Prop() private emptyArr: Array<string> = [];
+
+  initUserData(userData: UserData){
+    console.log(userData.name);
+    console.log(userData.pictureUrl);
+  }
+
+}
 </script>
 
 <style>

@@ -20,7 +20,6 @@
         <div class="UsedLetters">
             <div v-for="letter in usedLetters" v-bind:key="letter.id" class="UsedLetter">
                 {{ letter }}
-
             </div>
         </div>
 

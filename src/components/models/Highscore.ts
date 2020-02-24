@@ -1,10 +1,10 @@
 class Highscore {
     private _id: number;
-    private _googleData: string;
+    private _userData: UserData;
     private _score: number;
-    constructor(id: number, score: number, googleData: string){
+    constructor(id: number, score: number, userData: UserData){
         this._id = id;
-        this._googleData = googleData;
+        this._userData = userData;
         this._score = score;
     }
     get score(): number {
@@ -14,12 +14,12 @@ class Highscore {
     set score(value: number) {
         this._score = value;
     }
-    get googleData(): string {
-        return this._googleData;
+    get userData(): UserData {
+        return this._userData;
     }
 
-    set googleData(value: string) {
-        this._googleData = value;
+    set userData(value: UserData) {
+        this._userData = value;
     }
     get id(): number {
         return this._id;
