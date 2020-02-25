@@ -1,6 +1,5 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import axios from "axios";
-import * as request from 'request';
 
 
 @Component
@@ -9,9 +8,12 @@ export default class Highscores extends Vue {
     @Prop() private highscores!: Array<Highscore>;
     @Prop() private timer!: number;
     @Prop() private apiUrl = 'http://localhost:3002';
+    @Prop() private userData!: UserData;
+    @Prop() private highScoresLimit = 10;
 
 
     async created() {
+        console.log("Highscores component created");
         try {
             const res = await axios.get(this.apiUrl);
             this.highscores = res.data;
@@ -20,46 +22,51 @@ export default class Highscores extends Vue {
             console.log("Error while receiving json data");
         }
     }
-    verifyIfEligibleForHighscore(highscore: Highscore) {
-        return this.highscores[this.highscores.length-1].score < highscore.score;
-    }
-    addHighscore(highscore: Highscore){
-        this.highscores.push(highscore);
-        this.sortHighscores();
-    }
-    switchLastHighscore(highscore: Highscore){
-        this.highscores.pop();
-        this.addHighscore(highscore);
-    }
-    httpCall(method: string, data: Highscore) {
 
-        const xhr = new XMLHttpRequest();
-        xhr.open(method, this.apiUrl + "/highscores", true);
-        if (data != null) {
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify(data));
+    async sendNewHighscore(highscore: Highscore){
+        if(this.isEligibleForHighscore(highscore)) {
+            if (this.isHighscoresFull()) {
+                await this.removeHighscoreById(this.getWorstHighScoreId());
+            }
+            await this.addHighscore(highscore);
         }
-        else xhr.send();
+
     }
-    async clearHighscores(){
-        console.log("dupa");
-        setTimeout(() => console.log(this.highscores), 2000);
-        // console.log(this.highscores);
-        for(let i = 0; i < this.highscores.length; i++){
-            await axios.delete(this.apiUrl + "/highscores/" + (i+1));
-        }
-    }
-    async fillHighscores(){
-        //TODO
+    isEligibleForHighscore(newHighscore: Highscore) {
+        let hit = false;
+        this.highscores.forEach((highscore: Highscore)=>{
+            if(newHighscore.score < highscore.score){ hit = true;}
+        });
+
+        return hit;
     }
 
+    getWorstHighScoreId(){
+        let worstHighscoreScore = 0;
+        let worstHighscore: Highscore = new Highscore();
+
+        this.highscores.forEach(highscore => {
+            if (worstHighscoreScore < highscore.score){
+                worstHighscoreScore = highscore.score;
+                worstHighscore = highscore;
+            }
+        });
+        return worstHighscore.id;
+    }
+     async addHighscore(highscore: Highscore){
+        await axios.post(this.apiUrl + JSON.stringify(highscore));
+    }
+    async removeHighscoreById(id: number){
+        await axios.delete(this.apiUrl + "/highscores/" + (id));
+
+    }
     sortHighscores(){
         this.highscores.sort(function (a, b) {
             return b.score - a.score;
         });
     }
     isHighscoresFull(){
-        return this.highscores.length >= 10;
+        return this.highscores.length >= this.highScoresLimit;
     }
 
 }

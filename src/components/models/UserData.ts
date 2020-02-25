@@ -17,9 +17,9 @@ class UserData {
         this._name = value;
     }
 
-    constructor(name: string, pictureUrl: string){
-        this._name = name;
-        this._pictureUrl = pictureUrl;
+    constructor(name?: string, pictureUrl?: string){
+        this._name = name || '';
+        this._pictureUrl = pictureUrl || '';
     }
 
 }

@@ -1,7 +1,6 @@
 <template>
 
   <div class="Auth">
-          <p></p>
           <button
                   @click="handleClickSignIn"
                   v-if="!isSignIn"

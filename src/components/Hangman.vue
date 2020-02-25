@@ -1,5 +1,9 @@
 <template>
     <div class="Hangman">
+        <p></p>
+        <button @click="newGame()">
+            New Game
+        </button>
         <h1>
             {{ header }}
         </h1>
@@ -23,9 +27,6 @@
             </div>
         </div>
 
-        <button @click="newGame()">
-            New Game
-        </button>
     </div>
 </template>
 

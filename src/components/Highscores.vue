@@ -1,6 +1,6 @@
 <template>
     <div class="Highscores">
-        <!--<button @click="clearHighscores()">button</button>-->
+        <p>highscores</p>
 
     </div>
 </template>

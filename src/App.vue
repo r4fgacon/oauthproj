@@ -1,13 +1,19 @@
 <template>
   <div id="app">
-    <Hangman header="Welcome to hangman!" ></Hangman>
-    <Auth v-on:passUser="initUserData"></Auth>
-    <Highscores></Highscores>
+      <Auth v-on:passUser="userData = $event"></Auth>
+    <Hangman
+            header="Welcome to hangman!"
+            v-on:passTimer="time = $event"
+            v-on:showHighscores="initHighscoresComponent"
+            v-on:hideHighscores="removeHighscoresComponent"
+    ></Hangman>
+
   </div>
+
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+  import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import Auth from './components/Auth.vue';
 import Hangman from "@/components/Hangman.vue";
 import Highscores from "@/components/Highscores.vue";
@@ -20,16 +26,31 @@ import Highscores from "@/components/Highscores.vue";
 
   }
 })
+
+
 export default class App extends Vue {
   @Prop() private userData!: UserData;
-  @Prop() private emptyArr: Array<string> = [];
+  @Prop() private time!: number;
+  @Prop() private highscores!: Vue;
 
-  initUserData(userData: UserData){
-    console.log(userData.name);
-    console.log(userData.pictureUrl);
+  @Watch('time')
+  onPropertyChanged(){
+
+    console.log(this.time);
+
+  }
+  initHighscoresComponent(){
+
+    this.highscores = new Vue(Highscores);
+
+  }
+  removeHighscoresComponent(){
+    this.highscores = new Vue();
   }
 
 }
+
+
 </script>
 
 <style>

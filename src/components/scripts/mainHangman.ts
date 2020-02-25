@@ -14,8 +14,12 @@ export default class Hangman extends Vue {
     @Prop() private time!: Stopwatch;
     @Prop() private hint!: string;
     @Prop() private answers!: Array<Answer>;
-    @Prop() private gameOn = false;
+
+
     @Prop() private apiUrl = 'http://localhost:3001';
+
+
+
 
     async created() {
 
@@ -36,14 +40,14 @@ export default class Hangman extends Vue {
         this.capitalProgressFields = [];
         this.time = new Stopwatch();
         this.time.start(true);
+        this.$emit("hideHighscores");
     }
     newGame() {
 
         this.clearProperties();
 
-        this.gameOn = true;
-
         console.log("New game");
+
 
         this.initRandomCapital(this.randomiseCapitalId());
 
@@ -100,7 +104,9 @@ export default class Hangman extends Vue {
     private handleKeyPress(e: KeyboardEvent){
         const letter: string = String.fromCharCode(e.keyCode).toLowerCase();
         this.handleLetter(letter);
-        this.checkWinCondition();
+        if(this.isWon()){
+            this.handleVictory()
+        }
         this.handleHealth();
 
     }
@@ -134,20 +140,24 @@ export default class Hangman extends Vue {
 
     }
 
-    private checkWinCondition(){
-        if (!this.capitalProgressFields.includes("_")){
-            console.log("victory");
-            this.header="Victory";
-            this.endGame();
-        }
+    private isWon(){
+        return !this.capitalProgressFields.includes("_");
+    }
+
+    private handleVictory(){
+        console.log("victory");
+        this.header="Victory";
+
+        this.time.stop();
+        this.$emit("passTimer", this.time.getTime());
+
+        this.endGame();
     }
     private endGame(){
-        this.time.stop();
-        this.gameOn=false;
+        this.$emit("showHighscores");
         window.removeEventListener("keypress", this.handleKeyPress, true );
         this.usedLetters=[];
         this.capitalProgressFields=[];
-        console.log(this.time.getTime());
         this.hideGameWindow();
         this.showHighscore();
         this.attemptHighscore();

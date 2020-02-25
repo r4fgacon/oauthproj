@@ -1,12 +1,9 @@
 class Highscore {
+
     private _id: number;
-    private _userData: UserData;
+    private _userData!: UserData;
     private _score: number;
-    constructor(id: number, score: number, userData: UserData){
-        this._id = id;
-        this._userData = userData;
-        this._score = score;
-    }
+
     get score(): number {
         return this._score;
     }
@@ -27,5 +24,11 @@ class Highscore {
 
     set id(value: number) {
         this._id = value;
+    }
+
+    constructor(score?: number, userData?: UserData, id?: number){
+        this._id = id || 0;
+        this._userData = userData || new UserData();
+        this._score = score || 0;
     }
 }

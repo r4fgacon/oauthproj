@@ -1,10 +1,5 @@
 /* eslint-disable */
 export default {
-    name: "HelloWorld",
-    props: {
-        msg: String
-
-    },
     data() {
         return {
             isInit: false,
@@ -19,12 +14,8 @@ export default {
         login(){
             this.userData.name = this.$gAuth.GoogleAuth.currentUser.get().getBasicProfile().Ad;
             this.userData.pictureUrl = this.$gAuth.GoogleAuth.currentUser.get().getBasicProfile().jL;
-            //console.log(this.userData);
-            this.$emit("passUser", this.userData);
-            //this.handleClientLoad();
-            //this.initClient();
 
-           // this.makeRequest();
+            this.$emit("passUser", this.userData);
 
         },
 
@@ -32,19 +23,11 @@ export default {
             this.$gAuth
                 .signIn()
                 .then(GoogleUser => {
-                    //on success do something
-                    console.log("GoogleUser", GoogleUser);
-                    console.log("getId", GoogleUser.getId());
-                    console.log("getBasicProfile", GoogleUser.getBasicProfile());
-                    console.log("getAuthResponse", GoogleUser.getAuthResponse());
-                    console.log(
-                        "getAuthResponse",
-                        this.$gAuth.GoogleAuth.currentUser.get().getAuthResponse()
-                    );
+                    console.log("login successful");
                     this.isSignIn = this.$gAuth.isAuthorized;
                 })
                 .catch(error => {
-                    //on fail do something
+                    console.log("login failed");
                 });
         },
 
@@ -52,11 +35,11 @@ export default {
             this.$gAuth
                 .signOut()
                 .then(() => {
-                    //on success do something
+                    console.log("logout successful");
                     this.isSignIn = this.$gAuth.isAuthorized;
                 })
                 .catch(error => {
-                    //on fail do something
+                    console.log("logout failed");
                 });
         }
     },
