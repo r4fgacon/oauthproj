@@ -22,7 +22,7 @@ export default class Hangman extends Vue {
 
 
     async created() {
-
+        console.log(process.env.ANSWERS_PATH);
         try {
             const res = await axios.get(this.apiUrl+'/answers');
             this.answers = res.data;

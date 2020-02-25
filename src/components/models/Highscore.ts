@@ -1,4 +1,6 @@
-class Highscore {
+import UserData from "@/components/models/UserData";
+
+export default class Highscore {
 
     private _id: number;
     private _userData!: UserData;

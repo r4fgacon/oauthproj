@@ -1,4 +1,4 @@
-class UserData {
+export default class UserData {
     private _name: string;
     private _pictureUrl: string;
 

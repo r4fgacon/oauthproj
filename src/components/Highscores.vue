@@ -1,5 +1,6 @@
 <template>
     <div class="Highscores">
+        <p>{{ time }}</p>
         <p>highscores</p>
 
     </div>
