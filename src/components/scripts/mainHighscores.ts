@@ -9,18 +9,28 @@ export default class Highscores extends Vue {
     @Prop() private timer!: number;
     @Prop() private apiUrl = 'http://localhost:3002';
     @Prop() private userData!: UserData;
+    @Prop() private time!: number;
     @Prop() private highScoresLimit = 10;
 
 
     async created() {
         console.log("Highscores component created");
-        try {
+        console.log(this.userData.name);
+        console.log(this.userData.pictureUrl);
+        console.log(this.userData);
+        const ud = new UserData(this.userData.name, this.userData.pictureUrl);
+        console.log(ud);
+        //const hs = new Highscore(this.timer, );
+        //console.log(hs);
+        //console.log(this.time);
+/*        try {
             const res = await axios.get(this.apiUrl);
             this.highscores = res.data;
+            //this.sendNewHighscore()
 
         } catch (e) {
             console.log("Error while receiving json data");
-        }
+        }*/
     }
 
     async sendNewHighscore(highscore: Highscore){

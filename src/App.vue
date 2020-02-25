@@ -8,6 +8,9 @@
             v-on:hideHighscores="removeHighscoresComponent"
     ></Hangman>
 
+
+
+
   </div>
 
 </template>
@@ -29,6 +32,7 @@ import Highscores from "@/components/Highscores.vue";
 
 
 export default class App extends Vue {
+    // :time=time :userData=userData
   @Prop() private userData!: UserData;
   @Prop() private time!: number;
   @Prop() private highscores!: Vue;
@@ -36,16 +40,25 @@ export default class App extends Vue {
   @Watch('time')
   onPropertyChanged(){
 
-    console.log(this.time);
+    console.log("property changed");
 
   }
   initHighscoresComponent(){
 
-    this.highscores = new Vue(Highscores);
+      const hsCtor = Vue.extend(Highscores);
+      this.highscores = new hsCtor({
+          propsData: {
+              timer: this.time,
+              userData: this.userData
+          }
+      }).$mount('#mount');
+      //this.$forceUpdate();
+      //this.$nextTick();
+
 
   }
   removeHighscoresComponent(){
-    this.highscores = new Vue();
+      this.highscores.$off();
   }
 
 }
