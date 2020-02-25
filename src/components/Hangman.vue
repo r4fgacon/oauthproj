@@ -1,4 +1,4 @@
-<template>
+    <template>
     <div class="Hangman">
         <p></p>
         <button @click="newGame()">

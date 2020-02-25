@@ -15,10 +15,12 @@ export default class Highscores extends Vue {
     @Prop() private highScoresLimit = 10;
 
     async created() {
-        //const hs = new HighscoreDTO(this.time, this.userDataDTO);
-        //this.highscores=[];
-        //await this.sendNewHighscore(hs);
-        //await this.updateHighscores();
+        const hs = new HighscoreDTO(this.time, this.userDataDTO);
+        this.highscores=[];
+        if(!this.userDataDTO===undefined) {
+            await this.sendNewHighscore(hs);
+        }
+        await this.updateHighscores();
     }
 
     async updateHighscores(){

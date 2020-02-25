@@ -50,8 +50,6 @@ export default class Hangman extends Vue {
 
         console.log("New game");
 
-        console.log(this.answers.length);
-
         this.addKeypressListener();
 
         this.initRandomCapital(this.randomiseCapitalId());
@@ -136,7 +134,6 @@ export default class Hangman extends Vue {
             this.hint="Hint: Answer of " + this.answer.country + ".";
         }
         if (this.health == 0){
-            this.header="Game Over";
             this.endGame()
         }
 
@@ -156,23 +153,15 @@ export default class Hangman extends Vue {
         this.endGame();
     }
     private endGame(){
+        this.hint = `Correct answer was ${this.answer.capital}`;
+        this.header = "Game Over";
         this.$emit("showHighscores");
         window.removeEventListener("keypress", this.handleKeyPress, true );
         this.usedLetters=[];
         this.capitalProgressFields=[];
-        this.hideGameWindow();
-        this.showHighscore();
-        this.attemptHighscore();
+
     }
-    private hideGameWindow(){
-        //TODO
-    }
-    private showHighscore(){
-        //TODO
-    }
-    private attemptHighscore(){
-        //TODO
-    }
+
     imageSrc(){
         if (this.health == undefined){
             this.health = 0;
