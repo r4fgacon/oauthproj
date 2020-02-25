@@ -26,7 +26,7 @@ export default class Hangman extends Vue {
             await this.updateAnswers();
 
         } catch (e) {
-            console.log("Error while receiving json data");
+            //console.log("Error while receiving json data");
         }
     }
     async updateAnswers(){
@@ -46,19 +46,14 @@ export default class Hangman extends Vue {
     }
     async newGame() {
         await this.updateAnswers();
-        this.clearProperties();
 
-        console.log("New game");
+        this.clearProperties();
 
         this.addKeypressListener();
 
         this.initRandomCapital(this.randomiseCapitalId());
 
         this.fillAnswersWithBlanks();
-
-        console.log("developer hax: ", this.answer.capital);
-
-
     }
 
     private randomiseCapitalId() {
@@ -112,7 +107,6 @@ export default class Hangman extends Vue {
     }
 
     private handleVictory(){
-        console.log("victory");
         this.header="Victory";
         this.time.stop();
         this.endGame();
@@ -120,10 +114,9 @@ export default class Hangman extends Vue {
 
     private handleHealth(){
         if (this.health < 3){
-            this.hint="Hint: Answer of " + this.answer.country + ".";
+            this.hint=`Hint: Answer of ${this.answer.country}.`;
         }
         if (this.health == 0){
-            console.log('gameover');
             this.hint = `Correct answer was ${this.answer.capital}`;
             this.header = "Game Over";
             this.endGame();

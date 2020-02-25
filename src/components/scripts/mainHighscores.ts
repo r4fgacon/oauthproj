@@ -29,7 +29,7 @@ export default class Highscores extends Vue {
             this.highscores = res.data;
             this.sortHighscores();
         } catch (e) {
-            console.log("Error while receiving json data");
+            //console.log("Error while receiving json data");
         }
     }
 
@@ -69,7 +69,6 @@ export default class Highscores extends Vue {
         return worstHighscore.id;
     }
      async addHighscore(highscore: HighscoreDTO){
-        console.log("Adding highscore");
         await axios.post(this.apiUrl+"/highscores", highscore);
     }
     async removeHighscoreById(id: number | undefined){
