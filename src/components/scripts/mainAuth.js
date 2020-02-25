@@ -35,6 +35,7 @@ export default {
             this.$gAuth
                 .signOut()
                 .then(() => {
+                    this.$emit("logout");
                     console.log("logout successful");
                     this.isSignIn = this.$gAuth.isAuthorized;
                 })

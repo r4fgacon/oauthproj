@@ -17,7 +17,8 @@ export default class Highscores extends Vue {
     async created() {
         const hs = new HighscoreDTO(this.time, this.userDataDTO);
         this.highscores=[];
-        if(!this.userDataDTO===undefined) {
+        if(this.userDataDTO.Name!=='') {
+            console.log("dupa");
             await this.sendNewHighscore(hs);
         }
         await this.updateHighscores();
@@ -28,8 +29,6 @@ export default class Highscores extends Vue {
             const res = await axios.get(this.apiUrl+"/highscores");
             this.highscores = res.data;
             this.sortHighscores();
-
-
         } catch (e) {
             console.log("Error while receiving json data");
         }

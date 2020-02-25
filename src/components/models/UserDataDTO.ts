@@ -1,4 +1,5 @@
 export default class UserDataDTO {
+
     private name: string;
     private pictureUrl: string;
 
@@ -7,4 +8,7 @@ export default class UserDataDTO {
         this.pictureUrl = pictureUrl;
     }
 
+    get Name(): string {
+        return this.name;
+    }
 }

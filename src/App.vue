@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <Auth v-on:passUser="setUserData($event)"></Auth>
+      <Auth v-on:passUser="setUserData($event)" v-on:logout="clearUserData()"></Auth>
       <Hangman
             header="Welcome to hangman!"
             v-on:passTimer="time = $event"
@@ -52,7 +52,9 @@ export default class App extends Vue {
   removeHighscoresComponent(){
       this.highscoresVisible = false;
   }
-
+  clearUserData(){
+      this.userDataDTO = new UserDataDTO('','');
+  }
 }
 
 

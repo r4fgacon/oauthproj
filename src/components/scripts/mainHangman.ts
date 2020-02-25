@@ -135,6 +135,9 @@ export default class Hangman extends Vue {
             this.hint="Hint: Answer of " + this.answer.country + ".";
         }
         if (this.health == 0){
+            console.log('gameover');
+            this.hint = `Correct answer was ${this.answer.capital}`;
+            this.header = "Game Over";
             this.endGame()
         }
 
@@ -149,13 +152,13 @@ export default class Hangman extends Vue {
         this.header="Victory";
 
         this.time.stop();
-        this.$emit("passTimer", this.time.getTime());
 
         this.endGame();
     }
     private endGame(){
         this.hint = `Correct answer was ${this.answer.capital}`;
         this.header = "Game Over";
+        this.$emit("passTimer", this.time.getTime());
         this.$emit("showHighscores");
         window.removeEventListener("keypress", this.handleKeyPress, true );
         this.usedLetters=[];
