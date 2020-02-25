@@ -1,4 +1,4 @@
-class Answer{
+export default class Answer{
     private _id: number;
     private _country: string;
     private _capital: string;

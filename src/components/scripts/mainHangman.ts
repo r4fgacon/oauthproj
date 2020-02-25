@@ -1,6 +1,7 @@
 import axios from "axios";
 import {Component, Prop, Vue} from 'vue-property-decorator';
 import {Stopwatch} from "ts-stopwatch";
+import Answer from "@/components/models/Answer";
 
 
 @Component
