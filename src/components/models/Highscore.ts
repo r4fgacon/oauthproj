@@ -4,7 +4,7 @@ export default class Highscore {
 
     private _id: number;
     private _userData!: UserData;
-    private _score: number;
+    private readonly _score: number;
 
     get score(): number {
         return this._score;

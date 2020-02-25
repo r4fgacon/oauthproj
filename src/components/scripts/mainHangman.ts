@@ -68,12 +68,6 @@ export default class Hangman extends Vue {
     }
 
     private initRandomCapital(answerId: number) {
-        /*for (let i = 0; i < this.answers.length; i++) {
-            const element: Answer = this.answers[i];
-            if (element.id == capitalId) {
-                this.answer = element;
-            }
-        }*/
 
         this.answers.forEach((answer: Answer) => {
             if (answer.id === answerId) {
@@ -107,8 +101,9 @@ export default class Hangman extends Vue {
         this.handleLetter(letter);
         if(this.isWon()){
             this.handleVictory()
+        } else {
+            this.handleHealth();
         }
-        this.handleHealth();
 
     }
 
@@ -138,13 +133,15 @@ export default class Hangman extends Vue {
             console.log('gameover');
             this.hint = `Correct answer was ${this.answer.capital}`;
             this.header = "Game Over";
-            this.endGame()
+            this.endGame();
         }
 
     }
 
     private isWon(){
-        return !this.capitalProgressFields.includes("_");
+        if(this.capitalProgressFields.length > 0) {
+            return !this.capitalProgressFields.includes("_");
+        }
     }
 
     private handleVictory(){
@@ -156,10 +153,10 @@ export default class Hangman extends Vue {
         this.endGame();
     }
     private endGame(){
-        this.hint = `Correct answer was ${this.answer.capital}`;
-        this.header = "Game Over";
-        this.$emit("passTimer", this.time.getTime());
-        this.$emit("showHighscores");
+
+        //this.$emit("passTimer", this.time.getTime());
+        const time = this.time.getTime();
+        this.$emit("showHighscores", time);
         window.removeEventListener("keypress", this.handleKeyPress, true );
         this.usedLetters=[];
         this.capitalProgressFields=[];

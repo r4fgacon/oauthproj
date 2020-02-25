@@ -3,7 +3,7 @@ import UserDataDTO from "@/components/models/UserDataDTO";
 export default class HighscoreDTO {
 
     private userData: UserDataDTO;
-    private score: number;
+    private readonly score: number;
 
     get Score(): number {
         return this.score;

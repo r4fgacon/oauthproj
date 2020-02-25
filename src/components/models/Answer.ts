@@ -1,7 +1,7 @@
 export default class Answer{
-    private _id: number;
-    private _country: string;
-    private _capital: string;
+    private readonly _id: number;
+    private readonly _country: string;
+    private readonly _capital: string;
 
     constructor(id: number, country: string, capital: string){
         this._id = id;

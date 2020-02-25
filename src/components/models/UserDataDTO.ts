@@ -1,6 +1,6 @@
 export default class UserDataDTO {
 
-    private name: string;
+    private readonly name: string;
     private pictureUrl: string;
 
     constructor(name: string, pictureUrl: string){

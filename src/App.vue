@@ -3,8 +3,7 @@
       <Auth v-on:passUser="setUserData($event)" v-on:logout="clearUserData()"></Auth>
       <Hangman
             header="Welcome to hangman!"
-            v-on:passTimer="time = $event"
-            v-on:showHighscores="initHighscoresComponent"
+            v-on:showHighscores="initHighscoresComponent($event)"
             v-on:hideHighscores="removeHighscoresComponent"
       ></Hangman>
 
@@ -46,7 +45,9 @@ export default class App extends Vue {
       this.userDataDTO = new UserDataDTO($event.name, $event.pictureUrl);
   }
 
-  initHighscoresComponent(){
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  initHighscoresComponent($event: any){
+      this.time=$event;
       this.highscoresVisible = true;
   }
   removeHighscoresComponent(){

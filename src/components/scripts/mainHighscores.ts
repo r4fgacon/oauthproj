@@ -17,8 +17,7 @@ export default class Highscores extends Vue {
     async created() {
         const hs = new HighscoreDTO(this.time, this.userDataDTO);
         this.highscores=[];
-        if(this.userDataDTO.Name!=='') {
-            console.log("dupa");
+        if(this.userDataDTO!==undefined && this.userDataDTO.Name!=='') {
             await this.sendNewHighscore(hs);
         }
         await this.updateHighscores();
