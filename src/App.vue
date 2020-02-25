@@ -35,9 +35,12 @@ import UserDataDTO from "./components/models/UserDataDTO";
 
 export default class App extends Vue {
 
-  @Prop() private userDataDTO!: UserDataDTO;
-  @Prop() private time!: number;
-  @Prop() private highscoresVisible = false;
+  @Prop({default: new UserDataDTO('', '')})
+  private userDataDTO!: UserDataDTO;
+  @Prop({default: 0})
+  private time!: number;
+  @Prop({default: false})
+  private highscoresVisible!: boolean;
 
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

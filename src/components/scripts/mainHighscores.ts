@@ -1,4 +1,4 @@
-import {Component, Vue} from 'vue-property-decorator';
+import {Component, Vue, Prop} from 'vue-property-decorator';
 import axios from "axios";
 import Highscore from "../../components/models/Highscore";
 import UserDataDTO from "@/components/models/UserDataDTO";
@@ -8,16 +8,21 @@ import HighscoreDTO from "@/components/models/HighscoreDTO";
 @Component
 export default class Highscores extends Vue {
     private msg!: string;
+    @Prop({default: []})
     private highscores!: Array<Highscore>;
-    private apiUrl = process.env.VUE_APP_HIGHSCORES_PATH;
+    @Prop({default: process.env.VUE_APP_HIGHSCORES_PATH})
+    private apiUrl!: string;
+    @Prop({default: new UserDataDTO('', '')})
     private userDataDTO!: UserDataDTO;
+    @Prop({default: 0})
     private time!: number;
-    private highScoresLimit = 10;
+    @Prop({default: 10})
+    private highScoresLimit!: number;
 
     async created() {
         const hs = new HighscoreDTO(this.time, this.userDataDTO);
         this.highscores=[];
-        if(this.userDataDTO!==undefined && this.userDataDTO.Name!=='') {
+        if(this.userDataDTO.Name.length > 0) {
             await this.sendNewHighscore(hs);
         }
         await this.updateHighscores();
@@ -35,7 +40,6 @@ export default class Highscores extends Vue {
 
     async sendNewHighscore(highscore: HighscoreDTO) {
         if (highscore.Score > 0) {
-
         if (this.isEligibleForHighscore(highscore)) {
             if (this.isHighscoresFull()) {
                 await this.removeHighscoreById(this.getWorstHighScoreId());

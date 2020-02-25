@@ -18,8 +18,8 @@ export default class Hangman extends Vue {
     private time!: Stopwatch;
     private hint!: string;
     private answers!: Array<Answer>;
-
-    private apiUrl = process.env.VUE_APP_ANSWERS_PATH;
+    @Prop({default: process.env.VUE_APP_ANSWERS_PATH})
+    private apiUrl!: string;
 
     async created() {
         try {
@@ -114,11 +114,12 @@ export default class Hangman extends Vue {
 
     private handleHealth(){
         if (this.health < 3){
-            this.hint=`Hint: Answer of ${this.answer.country}.`;
+            this.hint=`Hint: Capital of ${this.answer.country}.`;
         }
         if (this.health == 0){
             this.hint = `Correct answer was ${this.answer.capital}`;
             this.header = "Game Over";
+            this.time.reset();
             this.endGame();
         }
     }
