@@ -1,6 +1,6 @@
 # oauthproj
 
-https://www.youtube.com/watch?v=x4ij3_7KYK8&feature=youtu.be
+https://www.youtube.com/watch?v=ry4w0VI-Z_I&feature=youtu.be
 
 ## Project setup
 ```
