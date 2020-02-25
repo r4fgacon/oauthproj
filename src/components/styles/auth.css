@@ -1,3 +1,24 @@
-h3 {
-    margin: 40px 0 0;
+.Auth {
+    text-align: right;
+}
+.logButton {
+    margin-top: -10px;
+    margin-right: 40px;
+    background-color:#c62d1f;
+    border-radius:18px;
+    border:1px solid #d02718;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:19px;
+    padding:7px 58px;
+    text-decoration:none;
+}
+.logButton:hover {
+    background-color:#f24437;
+}
+.logButton:active {
+    position:relative;
+    top:1px;
 }

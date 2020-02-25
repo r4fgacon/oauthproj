@@ -5,12 +5,14 @@
                   @click="handleClickSignIn"
                   v-if="!isSignIn"
                   :disabled="!isInit"
+                  class="logButton"
           >sign in</button>
 
           <button
                   @click="handleClickSignOut"
                   v-if="isSignIn"
                   :disabled="!isInit"
+                  class="logButton"
           >sign out</button>
 
 

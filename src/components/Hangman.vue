@@ -1,8 +1,8 @@
     <template>
     <div class="Hangman">
         <p></p>
-        <button @click="newGame()">
-            New Game
+        <button class="newGameButton" @click="newGame()">
+            <span>New Game</span>
         </button>
         <h1>
             {{ header }}
