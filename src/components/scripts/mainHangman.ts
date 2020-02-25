@@ -16,20 +16,22 @@ export default class Hangman extends Vue {
     @Prop() private answers!: Array<Answer>;
 
 
-    @Prop() private apiUrl = 'http://localhost:3001';
+    private apiUrl = process.env.VUE_APP_ANSWERS_PATH;
 
 
 
 
     async created() {
-        console.log(process.env.ANSWERS_PATH);
         try {
-            const res = await axios.get(this.apiUrl+'/answers');
-            this.answers = res.data;
+            await this.updateAnswers();
 
         } catch (e) {
             console.log("Error while receiving json data");
         }
+    }
+    async updateAnswers(){
+        const res = await axios.get(this.apiUrl+'/answers');
+        this.answers = res.data;
     }
 
     clearProperties(){
@@ -42,21 +44,21 @@ export default class Hangman extends Vue {
         this.time.start(true);
         this.$emit("hideHighscores");
     }
-    newGame() {
-
+    async newGame() {
+        await this.updateAnswers();
         this.clearProperties();
 
         console.log("New game");
 
+        console.log(this.answers.length);
+
+        this.addKeypressListener();
 
         this.initRandomCapital(this.randomiseCapitalId());
 
         this.fillAnswersWithBlanks();
 
-        this.addKeypressListener();
-
-
-        console.log(this.answer.capital);
+        console.log("developer hax: ", this.answer.capital);
 
 
     }
@@ -102,7 +104,7 @@ export default class Hangman extends Vue {
     }
 
     private handleKeyPress(e: KeyboardEvent){
-        const letter: string = String.fromCharCode(e.keyCode).toLowerCase();
+        const letter: string = (e.key).toLowerCase();
         this.handleLetter(letter);
         if(this.isWon()){
             this.handleVictory()

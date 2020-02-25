@@ -1,8 +1,20 @@
 {
   "highscores": [
     {
-      "{\"_id\":0,\"_userData\":{\"_name\":\"Rafał Gacoń\",\"_pictureUrl\":\"https://lh3.googleusercontent.com/a-/AAuE7mBXTfXX74h18D9tyHs-04Ei39Zh7zB0BrGFXEYXng": "s96-c\"},\"_score\":3635}",
+      "userData": {
+        "name": "Rafał Gacoń",
+        "pictureUrl": "https://lh3.googleusercontent.com/a-/AAuE7mBXTfXX74h18D9tyHs-04Ei39Zh7zB0BrGFXEYXng=s96-c"
+      },
+      "score": 3534,
       "id": 1
+    },
+    {
+      "userData": {
+        "name": "Rafał Gacoń",
+        "pictureUrl": "https://lh3.googleusercontent.com/a-/AAuE7mBXTfXX74h18D9tyHs-04Ei39Zh7zB0BrGFXEYXng=s96-c"
+      },
+      "score": 6609,
+      "id": 2
     }
   ]
 }

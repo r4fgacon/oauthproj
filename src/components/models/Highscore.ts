@@ -10,9 +10,6 @@ export default class Highscore {
         return this._score;
     }
 
-    set score(value: number) {
-        this._score = value;
-    }
     get userData(): UserData {
         return this._userData;
     }
