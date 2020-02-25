@@ -7,12 +7,12 @@ import HighscoreDTO from "@/components/models/HighscoreDTO";
 
 @Component
 export default class Highscores extends Vue {
-    @Prop() private msg!: string;
-    @Prop() private highscores!: Array<Highscore>;
-    @Prop() private apiUrl = process.env.VUE_APP_HIGHSCORES_PATH;
-    @Prop() private userDataDTO!: UserDataDTO;
-    @Prop() private time!: number;
-    @Prop() private highScoresLimit = 10;
+    private msg!: string;
+    private highscores!: Array<Highscore>;
+    private apiUrl = process.env.VUE_APP_HIGHSCORES_PATH;
+    private userDataDTO!: UserDataDTO;
+    private time!: number;
+    private highScoresLimit = 10;
 
     async created() {
         const hs = new HighscoreDTO(this.time, this.userDataDTO);

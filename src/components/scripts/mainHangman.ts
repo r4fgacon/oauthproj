@@ -7,20 +7,19 @@ import Answer from "@/components/models/Answer";
 @Component
 export default class Hangman extends Vue {
 
-    @Prop() private header!: string;
-    @Prop() private usedLetters!: Array<string>;
-    @Prop() private capitalProgressFields!: Array<string>;
-    @Prop() private answer!: Answer;
-    @Prop() private health!: number;
-    @Prop() private time!: Stopwatch;
-    @Prop() private hint!: string;
-    @Prop() private answers!: Array<Answer>;
-
+    
+    private header!: string;
+    @Prop({default: []})
+    private usedLetters!: Array<string>;
+    @Prop({default: []})
+    private capitalProgressFields!: Array<string>;
+    private answer!: Answer;
+    private health!: number;
+    private time!: Stopwatch;
+    private hint!: string;
+    private answers!: Array<Answer>;
 
     private apiUrl = process.env.VUE_APP_ANSWERS_PATH;
-
-
-
 
     async created() {
         try {
@@ -99,12 +98,8 @@ export default class Hangman extends Vue {
     private handleKeyPress(e: KeyboardEvent){
         const letter: string = (e.key).toLowerCase();
         this.handleLetter(letter);
-        if(this.isWon()){
-            this.handleVictory()
-        } else {
-            this.handleHealth();
-        }
-
+        if(this.isWon()){ this.handleVictory()
+        } else { this.handleHealth() }
     }
 
     private handleLetter(letter: string) {
@@ -116,13 +111,11 @@ export default class Hangman extends Vue {
         }
     }
 
-    private isLetterMatch(letter: string){
-        for (let i = 0; i < this.answer.capital.length; i++) {
-            if (this.answer.capital[i].toLowerCase() === letter) {
-                return true;
-            }
-        }
-        return false;
+    private handleVictory(){
+        console.log("victory");
+        this.header="Victory";
+        this.time.stop();
+        this.endGame();
     }
 
     private handleHealth(){
@@ -135,32 +128,30 @@ export default class Hangman extends Vue {
             this.header = "Game Over";
             this.endGame();
         }
+    }
 
+    private endGame(){
+        const time = this.time.getTime();
+        this.$emit("showHighscores", time);
+        window.removeEventListener("keypress", this.handleKeyPress, true );
+        this.usedLetters=[];
+        this.capitalProgressFields=[];
+    }
+
+
+    private isLetterMatch(letter: string){
+        for (let i = 0; i < this.answer.capital.length; i++) {
+            if (this.answer.capital[i].toLowerCase() === letter) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private isWon(){
         if(this.capitalProgressFields.length > 0) {
             return !this.capitalProgressFields.includes("_");
         }
-    }
-
-    private handleVictory(){
-        console.log("victory");
-        this.header="Victory";
-
-        this.time.stop();
-
-        this.endGame();
-    }
-    private endGame(){
-
-        //this.$emit("passTimer", this.time.getTime());
-        const time = this.time.getTime();
-        this.$emit("showHighscores", time);
-        window.removeEventListener("keypress", this.handleKeyPress, true );
-        this.usedLetters=[];
-        this.capitalProgressFields=[];
-
     }
 
     imageSrc(){

@@ -1,7 +1,7 @@
     <template>
     <div class="Hangman">
         <p></p>
-        <button class="newGameButton" @click="newGame()">
+        <button class="newGameButton" @click="newGame">
             <span>New Game</span>
         </button>
         <h1>

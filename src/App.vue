@@ -7,7 +7,7 @@
             v-on:hideHighscores="removeHighscoresComponent"
       ></Hangman>
 
-      <Highscores v-if="highscoresVisible" :time="time" :userDataDTO="userDataDTO"></Highscores>
+      <Highscores v-if="highscoresVisible" v-bind:time="time" v-bind:userDataDTO="userDataDTO"></Highscores>
 
 
 
