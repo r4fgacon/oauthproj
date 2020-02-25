@@ -1,4 +1,4 @@
-import {Component, Prop, Vue} from 'vue-property-decorator';
+import {Component, Vue} from 'vue-property-decorator';
 import axios from "axios";
 import Highscore from "../../components/models/Highscore";
 import UserDataDTO from "@/components/models/UserDataDTO";

@@ -7,7 +7,7 @@ import Answer from "@/components/models/Answer";
 @Component
 export default class Hangman extends Vue {
 
-    
+
     private header!: string;
     @Prop({default: []})
     private usedLetters!: Array<string>;
